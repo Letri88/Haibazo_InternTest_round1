@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 function App(){
   const [totalPoints, setTotalPoints] = useState(5);
@@ -32,7 +32,7 @@ useEffect(() => {
   },100);
   return () => clearInterval(interval);
 }, [isPlaying,gameOver, allCleared]);
-  const handleClick =(id) =>{
+  const handleClick = useCallback((id) => {
     if(gameOver) return;
     const point = points.find((p) => p.id === id);
     if(!point.visible) return;
@@ -46,7 +46,7 @@ useEffect(() => {
     } else{
       setGameOver(true);
     }
-    };
+  }, [gameOver, points, current]);
     useEffect(() => {
       if(!autoplay || gameOver) return;
       if(current > totalPoints) return;
@@ -54,7 +54,7 @@ useEffect(() => {
         handleClick(current);
       },500);
       return() =>clearTimeout(timeout);
-    }, [autoplay, current, gameOver, allCleared]);
+    }, [autoplay, current, gameOver, totalPoints, handleClick]);
       return (
     <div className="container">
       <h2 style={{ color: "red" }}>
