@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect} from "react";
 import "./App.css";
 function App(){
   const [totalPoints, setTotalPoints] = useState(5);
@@ -54,7 +54,7 @@ useEffect(() => {
         handleClick(current);
       },500);
       return() =>clearTimeout(timeout);
-    }, [autoplay,current]);
+    }, [autoplay, current, gameOver, allCleared]);
       return (
     <div className="container">
       <h2 style={{ color: "red" }}>
